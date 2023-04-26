@@ -94,7 +94,10 @@ print('Called');
     updateTodo(todo: newTodo);
   }
   void editTodoOldNew(
-      {required ModelTodo oldTodo, required ModelTodo newTodo}) {}
+      {required ModelTodo oldTodo, required ModelTodo newTodo}) {
+    updateTodo(todo: newTodo);
+
+  }
 
   editTodo(BuildContext context, ModelTodo todo) {
     Get.defaultDialog(
