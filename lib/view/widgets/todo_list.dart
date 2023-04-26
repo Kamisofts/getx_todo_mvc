@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:getx_todo_mvc/view/widgets/task_tile.dart';
-import '../../model/todo_model.dart';
+import 'package:getx_todo_mvc/view/widgets/todo_tile.dart';
+import '../../core/model/todo_model.dart';
 
 
-class TasksList extends StatelessWidget {
-  const TasksList({Key? key, required this.taskList}) : super(key: key);
-  final List<ModelTodo> taskList;
+class TodosList extends StatelessWidget {
+  const TodosList({Key? key, required this.todoList}) : super(key: key);
+  final List<ModelTodo> todoList;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
         child: ExpansionPanelList.radio(
-          children: taskList
-              .map((task) => ExpansionPanelRadio(
-                    value: task.id,
-                    headerBuilder: (context, isOen) => TaskTile(
-                      task: task,
+          children: todoList
+              .map((todo) => ExpansionPanelRadio(
+                    value: todo.id,
+                    headerBuilder: (context, isOen) => TodoTile(
+                      todo: todo,
                     ),
                     body: ListTile(
                       title: SelectableText.rich(
                         TextSpan(children: [
                           const TextSpan(
-                            text: 'Task\n',
+                            text: 'Todo\n',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
-                            text: task.title,
+                            text: todo.title,
                             style: const TextStyle(fontWeight: FontWeight.normal),
                           ),
                           const TextSpan(
@@ -34,7 +34,7 @@ class TasksList extends StatelessWidget {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
-                            text: task.description,
+                            text: todo.description,
                             style: const TextStyle(fontWeight: FontWeight.normal),
                           ),
                         ]),
@@ -47,10 +47,5 @@ class TasksList extends StatelessWidget {
     );
   }
 
-/*Expanded(
-      child: ListView.builder(
-        itemCount: taskList.length,
-        itemBuilder: (context, index) => TaskTile(task: taskList[index],),
-      ),
-    )*/
+
 }

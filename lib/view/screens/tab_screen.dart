@@ -2,53 +2,50 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_todo_mvc/controller/tabs_controller.dart';
+import '../../core/controller/tabs_controller.dart';
 import 'my_drawer.dart';
 
-class TabScreen extends StatelessWidget {
-  TabScreen({Key? key}) : super(key: key);
-  final TabsController tabController = Get.find<TabsController>();
+class TabScreen extends GetWidget<TabsController> {
+  const TabScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Obx(() => Text(
-            tabController.pageDetails[tabController.tabIndex.value]['title']))
-
-       ,
-        actions: [
-          IconButton(
-            onPressed: () => tabController.addTask(context),
-            icon: const Icon(Icons.add),
-          )
-        ],
-      ),
-      drawer:  MyDrawer(),
-      body: Obx(() =>
-          tabController.pageDetails[tabController.tabIndex.value]['pageName']),
-      floatingActionButton: tabController.tabIndex.value == 0
-          ? FloatingActionButton(
-              onPressed: () => tabController.addTask(context),
-              tooltip: 'Add Task',
-              child: const Icon(Icons.add),
-            )
-          : null,
-      bottomNavigationBar:
-      Obx(() => BottomNavigationBar(
-        currentIndex: tabController.tabIndex.value,
-        onTap: (index) => tabController.setTabIndex(index),
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.incomplete_circle_rounded),
-              label: 'Pending Task'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.done), label: 'Completed Task'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: 'Favorite Task')
-        ],
-      ))
-      ,
-    );
+    return Obx(() => Scaffold(
+          appBar: AppBar(
+            title: Text(
+                controller.pageDetails[controller.tabIndex.value]['title']),
+            actions: [
+              IconButton(
+                onPressed: () => controller.addTask(context),
+                icon: const Icon(Icons.add),
+              )
+            ],
+          ),
+          drawer: MyDrawer(),
+          body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: controller.pageDetails[controller.tabIndex.value]
+                  ['pageName']),
+          floatingActionButton: controller.tabIndex.value == 0
+              ? FloatingActionButton(
+                  onPressed: () => controller.addTask(context),
+                  tooltip: 'Add Task',
+                  child: const Icon(Icons.add),
+                )
+              : null,
+          bottomNavigationBar:  BottomNavigationBar(
+                currentIndex: controller.tabIndex.value,
+                onTap: (index) => controller.setTabIndex(index),
+                items: const [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.incomplete_circle_rounded),
+                      label: 'Pending Task'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.done), label: 'Completed Task'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.favorite), label: 'Favorite Task')
+                ],
+              ),
+        ));
   }
 }

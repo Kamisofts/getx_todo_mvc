@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_todo_mvc/controller/main_binding.dart';
-import 'package:getx_todo_mvc/controller/theme_controller.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:getx_todo_mvc/core/controller/todo_controller.dart';
 import 'package:getx_todo_mvc/view/screens/tab_screen.dart';
 
-import 'app_theme.dart';
+import 'core/controller/main_binding.dart';
+import 'core/controller/theme_controller.dart';
+import 'core/utils/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MainBindings().dependencies();
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -19,6 +22,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var themeController=Get.find<ThemeController>();
+    Get.find<TodoController>().getTodos();
+    themeController.getTheme();
     return Obx(() =>
         GetMaterialApp(
           smartManagement: SmartManagement.full,
@@ -29,7 +34,7 @@ class MyApp extends StatelessWidget {
           :themeController.switchValue.value
               ? AppThemes.appThemeData[AppTheme.darkTheme]
               : AppThemes.appThemeData[AppTheme.lightTheme],
-          home: TabScreen(),
+          home: const TabScreen(),
         ))
 
     ;

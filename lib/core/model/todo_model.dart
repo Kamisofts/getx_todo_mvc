@@ -4,9 +4,10 @@ class ModelTodo {
   final String description;
   final String date;
   final String status;
-  final bool isDeleted;
-  final bool isFavorite;
-  final bool isDone;
+  final int isDeleted;
+  final int isFavorite;
+  final int isDone;
+  final int millis;
 
   ModelTodo(
       {required this.status,
@@ -14,9 +15,10 @@ class ModelTodo {
       required this.title,
       required this.description,
       required this.date,
-      this.isDeleted = false,
-      this.isDone = false,
-      this.isFavorite = false});
+      required this.millis,
+      this.isDeleted = 0,
+      this.isDone = 0,
+      this.isFavorite = 0});
 
   factory ModelTodo.fromJson(Map<String, dynamic> json) {
     return ModelTodo(
@@ -28,6 +30,7 @@ class ModelTodo {
       isDeleted: json["isDeleted"],
       isFavorite: json["isFavorite"],
       isDone: json["isDone"],
+      millis: json["millis"],
     );
   }
 
@@ -41,6 +44,7 @@ class ModelTodo {
       "isDeleted": isDeleted,
       "isFavorite": isFavorite,
       "isDone": isDone,
+      "millis": millis,
     };
   }
 
@@ -50,15 +54,17 @@ class ModelTodo {
       String? description,
       String? date,
       String? status,
-      bool? isDone,
-      bool? isDeleted,
-      bool? isFavorite}) {
+      int? isDone,
+      int? millis,
+      int? isDeleted,
+      int? isFavorite}) {
     return ModelTodo(
         id: id ?? this.id,
         title: title ?? this.title,
         date: date ?? this.date,
         description: description ?? this.description,
         isDone: isDone ?? this.isDone,
+        millis: millis ?? this.millis,
         isFavorite: isFavorite ?? this.isFavorite,
         isDeleted: isDeleted ?? this.isDeleted,
         status: this.status);

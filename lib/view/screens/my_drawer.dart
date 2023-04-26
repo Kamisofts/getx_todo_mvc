@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_todo_mvc/controller/theme_controller.dart';
-import 'package:getx_todo_mvc/controller/todo_controller.dart';
 import 'package:getx_todo_mvc/view/screens/recycle_bin.dart';
 import 'package:getx_todo_mvc/view/screens/tab_screen.dart';
+
+import '../../core/controller/theme_controller.dart';
+import '../../core/controller/todo_controller.dart';
 
 // ignore: must_be_immutable
 class MyDrawer extends StatelessWidget {
@@ -23,7 +24,7 @@ class MyDrawer extends StatelessWidget {
             color: Colors.grey,
             child: Text(
               'Task Drawer',
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
           GestureDetector(
@@ -33,7 +34,7 @@ class MyDrawer extends StatelessWidget {
               title: const Text('My Tasks'),
               leading: const Icon(Icons.folder_special),
               trailing: Obx(() => Text(
-                  '${todoController.pendingTasks.length} | ${todoController.completedTasks.length}')),
+                  '${todoController.pendingTodos.length} | ${todoController.completedTodos.length}')),
             ),
           ),
           GestureDetector(
@@ -42,7 +43,7 @@ class MyDrawer extends StatelessWidget {
             child: ListTile(
               title: const Text('Bin'),
               leading: const Icon(Icons.delete),
-              trailing: Obx(() => Text(todoController.removedTasks.length.toString())),
+              trailing: Obx(() => Text(todoController.removedTodos.length.toString())),
             ),
           ),
           Obx(() => ListTile(

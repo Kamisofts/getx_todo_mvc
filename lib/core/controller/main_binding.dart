@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
-import 'package:getx_todo_mvc/controller/tabs_controller.dart';
-import 'package:getx_todo_mvc/controller/theme_controller.dart';
-import 'package:getx_todo_mvc/controller/todo_controller.dart';
-
+import 'package:getx_todo_mvc/core/controller/tabs_controller.dart';
+import 'package:getx_todo_mvc/core/controller/theme_controller.dart';
+import 'package:getx_todo_mvc/core/controller/todo_controller.dart';
 
 class MainBindings extends Bindings{
   @override

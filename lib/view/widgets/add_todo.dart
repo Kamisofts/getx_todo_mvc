@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_todo_mvc/controller/todo_controller.dart';
-import '../../model/todo_model.dart';
 
-class EditTaskScreen extends GetWidget<TodoController> {
-  final ModelTodo oldTask;
+import '../../core/controller/todo_controller.dart';
+import '../../core/model/todo_model.dart';
+import '../../core/utils/guid_gen.dart';
 
-   const EditTaskScreen({Key? key, required this.oldTask}) : super(key: key);
+class AddTodoScreen extends GetWidget<TodoController> {
+  const AddTodoScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    TextEditingController titleController =
-    TextEditingController(text: oldTask.title);
-    TextEditingController descController =
-    TextEditingController(text: oldTask.description);
+    TextEditingController titleController = TextEditingController();
+    TextEditingController descController = TextEditingController();
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          const Text('Edit Task', style: TextStyle(fontSize: 24)),
+          const Text('Add Todo', style: TextStyle(fontSize: 24)),
           const SizedBox(height: 10),
           TextField(
             autofocus: true,
@@ -41,21 +38,22 @@ class EditTaskScreen extends GetWidget<TodoController> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => Get.back(),
                   child: const Text('Cancel')),
               const SizedBox(width: 20),
               ElevatedButton(
                   onPressed: () {
-                    var editedTask = ModelTodo(
-                        id: oldTask.id,
+                    var todo = ModelTodo(
+                        id: GUIDGen.generate(),
                         title: titleController.text,
-                        isFavorite: oldTask.isFavorite,
-                        isDone: false,
                         description: descController.text,
-                        date: DateTime.now().toString(), status: '');
-                   controller.editTaskOldNew(oldTask: oldTask,newTask: editedTask);
-Get.back();                  },
-                  child: const Text('Save')),
+                        date: DateTime.now().toString(),
+                        status: '',
+                        millis: DateTime.now().millisecondsSinceEpoch);
+                    controller.addTodo(todo: todo);
+                    Get.back();
+                  },
+                  child: const Text('Add')),
             ],
           )
         ],

@@ -7,6 +7,7 @@ enum AppTheme{
 class AppThemes {
   static final appThemeData = {
     AppTheme.darkTheme: ThemeData(
+
       primarySwatch: Colors.grey,
       primaryColor: Colors.black,
       brightness: Brightness.dark,
@@ -52,6 +53,7 @@ class AppThemes {
           backgroundColor: Colors.grey,
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.white),
+
     ),
   };
 }
